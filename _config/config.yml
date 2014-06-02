@@ -1,0 +1,10 @@
+---
+Name: CommerceBulkPrice
+After: 'framework/*'
+---
+Product:
+  extensions:
+    - BulkPriceProduct
+ShoppingCart:
+  extensions:
+    - BulkPriceShoppingCart
