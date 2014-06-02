@@ -8,3 +8,6 @@ Product:
 ShoppingCart:
   extensions:
     - BulkPriceShoppingCart
+ProductCSVBulkLoader:
+  extensions:
+    - BulkPriceProductCSV

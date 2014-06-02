@@ -35,4 +35,11 @@ class BulkPriceProduct extends DataExtension {
         $fields->addFieldToTab('Root.BulkPrices', $bulk_field);
     }
 
+    public function onBeforeDelete() {
+        // Clean database before deletion
+        foreach($this->owner->BulkPrices() as $object) {
+            $object->delete();
+        }
+    }
+
 }
