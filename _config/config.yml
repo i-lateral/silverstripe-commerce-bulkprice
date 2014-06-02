@@ -11,3 +11,6 @@ ShoppingCart:
 ProductCSVBulkLoader:
   extensions:
     - BulkPriceProductCSV
+Catalogue_Controller:
+  extensions:
+    - BulkPriceCatalogueController
