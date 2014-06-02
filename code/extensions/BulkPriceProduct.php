@@ -5,7 +5,7 @@
  * object (by default a Product) and sets up an inline editing instance.
  *
  * @author i-lateral (http://www.i-lateral.com)
- * @package commerce-bulkdiscounts
+ * @package commerce-bulkprice
  */
 class BulkPriceProduct extends DataExtension {
 

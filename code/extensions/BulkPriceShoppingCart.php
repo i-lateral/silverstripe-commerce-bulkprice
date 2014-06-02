@@ -5,7 +5,7 @@
  * shopping cart, based on any bulk discounts set via the admin
  *
  * @author i-lateral (http://www.i-lateral.com)
- * @package commerce-bulkdiscounts
+ * @package commerce-bulkprice
  */
 class BulkPriceShoppingCart extends Extension {
 

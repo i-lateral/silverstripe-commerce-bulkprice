@@ -1,8 +1,9 @@
-Silverstripe Commerce Bulk Discounts
-====================================
+Silverstripe Commerce Bulk Price
+================================
 
-Extension to silverstripe commerce module that allows you to define
-discounts to a product's price.
+Extension to silverstripe commerce module that allows you to alter a
+product's price when added to the cart, if a certain number of that
+product are added.
 
 ## Author
 
