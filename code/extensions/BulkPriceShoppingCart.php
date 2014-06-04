@@ -9,7 +9,9 @@
  */
 class BulkPriceShoppingCart extends Extension {
 
-    private function calculate_bulk_price(Product $product, $quantity) {
+    private function calculate_bulk_price(Product $product, $item) {
+        $price = 0;
+
         foreach($product->BulkPrices() as $bulk_price) {
             $range = array();
 
@@ -31,14 +33,22 @@ class BulkPriceShoppingCart extends Extension {
             // Finally check if the current quantity sits in the
             // current range and amend price
             if(
-                ($range[1] == -1 && $quantity >= $range[0]) ||
-                ($quantity >= $range[0] && $quantity <= $range[1])
+                ($range[1] == -1 && $item->Quantity >= $range[0]) ||
+                ($item->Quantity >= $range[0] && $item->Quantity <= $range[1])
             )
-                return $bulk_price->Price;
+                $price = $bulk_price->Price;
         }
 
-        // If nothing has returned, return default price
-        return $product->Price;
+        if(!$price) $price = $product->Price;
+
+        // Check for customisations that modify price
+        foreach($item->Customised as $custom_item) {
+            // If a customisation modifies price, adjust the price
+            $price = (float)$price + (float)$custom_item->ModifyPrice;
+        }
+
+        // finally, return price
+        return $price;
     }
 
     /**
@@ -46,7 +56,7 @@ class BulkPriceShoppingCart extends Extension {
      */
     public function onBeforeAdd($item) {
         if($product = Product::get()->byID($item->ProductID))
-            $item->Price = $this->calculate_bulk_price($product, $item->Quantity);
+            $item->Price = $this->calculate_bulk_price($product, $item);
     }
 
     /**
@@ -54,7 +64,7 @@ class BulkPriceShoppingCart extends Extension {
      */
     public function onAfterUpdate($item) {
         if($product = Product::get()->byID($item->ProductID))
-            $item->Price = $this->calculate_bulk_price($product, $item->Quantity);
+            $item->Price = $this->calculate_bulk_price($product, $item);
     }
 
 }
