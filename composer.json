@@ -1,9 +1,9 @@
 {
-  "name": "i-lateral/silverstripe-commerce-bulkorders",
+  "name": "i-lateral/silverstripe-commerce-bulkprice",
   "description": "A Silverstripe module that adds discount prices to products when greater quantities are ordered",
   "type": "silverstripe-module",
-    "homepage": "http://github.com/i-lateral/silverstripe-commerce-bulkorders",
-    "keywords": ["silverstripe","commerce","bulk","orders"],
+    "homepage": "http://github.com/i-lateral/silverstripe-commerce-bulkprice",
+    "keywords": ["silverstripe","commerce","bulk","orders","price"],
     "license": "BSD-3-Clause",
     "authors": [
         {
@@ -12,13 +12,13 @@
         }
     ],
     "support": {
-        "issues": "http://github.com/i-lateral/silverstripe-commerce-bulkorders/issues"
+        "issues": "http://github.com/i-lateral/silverstripe-commerce-bulkprice/issues"
     },
     "require": {
         "silverstripe/framework": ">=3.1",
         "i-lateral/silverstripe-commerce": ">=3.1"
     },
     "extra": {
-        "installer-name": "commerce-bulkorders"
+        "installer-name": "commerce-bulkprice"
     }
 }
