@@ -16,7 +16,6 @@ class BulkPriceShoppingCart extends Extension {
      * @param $item (the item in the shopping cart)
      */
     private function calculate_bulk_price($object, $item) {
-        $return = new Currency("Price");
         $price = 0;
 
         foreach($object->BulkPrices() as $bulk_price) {
@@ -46,10 +45,7 @@ class BulkPriceShoppingCart extends Extension {
                 $price = $bulk_price->Price;
         }
         
-        if(!$price)
-            $return = $item->Price;
-        else
-            $return->setValue($price);
+        if(!$price) $price = $object->Price();
 
         if($item->Customisations) {
             // Check for customisations that modify price
@@ -60,7 +56,7 @@ class BulkPriceShoppingCart extends Extension {
         }
 
         // finally, return price
-        return $return;
+        return $price;
     }
 
     /**
