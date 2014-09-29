@@ -6,7 +6,7 @@
                 <tr>
                     <td>$Quantity</td>
                     <td>
-                        {$Top.SiteConfig.Currency.HTMLNotation.RAW}{$Price}
+                        {$Price.nice}
                     </td>
                 </tr>
             <% end_loop %>

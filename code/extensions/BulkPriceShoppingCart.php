@@ -9,10 +9,17 @@
  */
 class BulkPriceShoppingCart extends Extension {
 
-    private function calculate_bulk_price(Product $product, $item) {
+    /**
+     * Calculate the bulk pricing of the item submitted
+     * 
+     * @param $object (the object the bulk pricing is assigned to
+     * @param $item (the item in the shopping cart)
+     */
+    private function calculate_bulk_price($object, $item) {
+        $return = new Currency("Price");
         $price = 0;
 
-        foreach($product->BulkPrices() as $bulk_price) {
+        foreach($object->BulkPrices() as $bulk_price) {
             $range = array();
 
             // Determine whaty type of price we are dealing with
@@ -38,33 +45,40 @@ class BulkPriceShoppingCart extends Extension {
             )
                 $price = $bulk_price->Price;
         }
+        
+        if(!$price)
+            $return = $item->Price;
+        else
+            $return->setValue($price);
 
-        if(!$price) $price = $product->Price;
-
-        // Check for customisations that modify price
-        foreach($item->Customised as $custom_item) {
-            // If a customisation modifies price, adjust the price
-            $price = (float)$price + (float)$custom_item->ModifyPrice;
+        if($item->Customisations) {
+            // Check for customisations that modify price
+            foreach($item->Customisations as $custom_item) {
+                // If a customisation modifies price, adjust the price
+                $price += ($custom_item->Price) ? (float)$custom_item->Price : 0;
+            }
         }
 
         // finally, return price
-        return $price;
+        return $return;
     }
 
     /**
      * Calculate the item price, based on any bulk discounts set
      */
     public function onBeforeAdd($item) {
-        if($product = Product::get()->byID($item->ProductID))
-            $item->Price = $this->calculate_bulk_price($product, $item);
+        $object = ($item->StockID) ? CatalogueProduct::get()->filter("StockID", $item->StockID)->first() : null;
+        
+        if($object) $item->Price = $this->calculate_bulk_price($object, $item);
     }
 
     /**
      * Calculate the item price, based on any bulk discounts set
      */
     public function onAfterUpdate($item) {
-        if($product = Product::get()->byID($item->ProductID))
-            $item->Price = $this->calculate_bulk_price($product, $item);
+        $object = ($item->StockID) ? CatalogueProduct::get()->filter("StockID", $item->StockID)->first() : null;
+        
+        if($object) $item->Price = $this->calculate_bulk_price($object, $item);
     }
 
 }

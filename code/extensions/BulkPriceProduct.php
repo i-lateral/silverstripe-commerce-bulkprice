@@ -17,7 +17,7 @@ class BulkPriceProduct extends DataExtension {
 
         // Deal with product features
         $add_button = new GridFieldAddNewInlineButton('toolbar-header-left');
-        $add_button->setTitle(_t("CommerceBulkPrice.AddDiscount", "Add Discount"));
+        $add_button->setTitle(_t("CommerceBulkPrice.AddPrice", "Add Price"));
 
         $bulk_field = new GridField(
             'BulkPrices',

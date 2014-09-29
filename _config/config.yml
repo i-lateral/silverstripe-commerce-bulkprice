@@ -2,15 +2,15 @@
 Name: CommerceBulkPrice
 After: 'framework/*'
 ---
-Product:
+CatalogueProduct:
   extensions:
     - BulkPriceProduct
+CatalogueProductController:
+  extensions:
+    - BulkPriceCatalogueController
 ShoppingCart:
   extensions:
     - BulkPriceShoppingCart
 ProductCSVBulkLoader:
   extensions:
     - BulkPriceProductCSV
-Catalogue_Controller:
-  extensions:
-    - BulkPriceCatalogueController
