@@ -22,7 +22,7 @@ class BulkPrice extends DataObject {
     );
 
     private static $has_one = array(
-        "Parent"    => "Product"
+        "Parent"    => "CatalogueProduct"
     );
 
     private static $summary_fields = array(

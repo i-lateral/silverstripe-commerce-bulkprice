@@ -2,7 +2,7 @@
 
 class BulkPriceProductCSV extends Extension {
 
-    public function onAfterProcess($record, $object) {
+    public function onAfterProcess($object, $record, $columnMap, $results, $preview) {
 
         // Setup bulk prices for this object
         if(isset($record['BulkPrices']) && $record['BulkPrices']) {
