@@ -45,15 +45,7 @@ class BulkPriceShoppingCart extends Extension {
                 $price = $bulk_price->Price;
         }
         
-        if(!$price) $price = $object->Price();
-
-        if($item->Customisations) {
-            // Check for customisations that modify price
-            foreach($item->Customisations as $custom_item) {
-                // If a customisation modifies price, adjust the price
-                $price += ($custom_item->Price) ? (float)$custom_item->Price : 0;
-            }
-        }
+        if(!$price) $price = $object->BasePrice;
 
         // finally, return price
         return $price;
@@ -65,16 +57,16 @@ class BulkPriceShoppingCart extends Extension {
     public function onBeforeAdd($item) {
         $object = ($item->StockID) ? CatalogueProduct::get()->filter("StockID", $item->StockID)->first() : null;
         
-        if($object) $item->Price = $this->calculate_bulk_price($object, $item);
+        if($object) $item->BasePrice = $this->calculate_bulk_price($object, $item);
     }
 
     /**
      * Calculate the item price, based on any bulk discounts set
      */
-    public function onAfterUpdate($item) {
+    public function onBeforeUpdate($item) {
         $object = ($item->StockID) ? CatalogueProduct::get()->filter("StockID", $item->StockID)->first() : null;
         
-        if($object) $item->Price = $this->calculate_bulk_price($object, $item);
+        if($object) $item->BasePrice = $this->calculate_bulk_price($object, $item);
     }
 
 }
