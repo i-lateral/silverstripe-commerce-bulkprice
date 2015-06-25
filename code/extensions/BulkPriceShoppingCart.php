@@ -45,7 +45,7 @@ class BulkPriceShoppingCart extends Extension {
                 $price = $bulk_price->Price;
         }
         
-        if(!$price) $price = $object->BasePrice;
+        if(!$price) $price = $object->Price;
 
         // finally, return price
         return $price;
@@ -55,18 +55,30 @@ class BulkPriceShoppingCart extends Extension {
      * Calculate the item price, based on any bulk discounts set
      */
     public function onBeforeAdd($item) {
-        $object = ($item->StockID) ? CatalogueProduct::get()->filter("StockID", $item->StockID)->first() : null;
+        $id = $item->StockID;
+        $classname = $item->ClassName;
+        $object = null;
         
-        if($object) $item->BasePrice = $this->calculate_bulk_price($object, $item);
+        if($id && $classname)
+            $object = $classname::get()->filter("StockID", $id)->first();
+        
+        if($object)
+            $item->BasePrice = $this->calculate_bulk_price($object, $item);
     }
 
     /**
      * Calculate the item price, based on any bulk discounts set
      */
     public function onBeforeUpdate($item) {
-        $object = ($item->StockID) ? CatalogueProduct::get()->filter("StockID", $item->StockID)->first() : null;
+        $id = $item->StockID;
+        $classname = $item->ClassName;
+        $object = null;
         
-        if($object) $item->BasePrice = $this->calculate_bulk_price($object, $item);
+        if($id && $classname)
+            $object = $classname::get()->filter("StockID", $id)->first();
+        
+        if($object)
+            $item->BasePrice = $this->calculate_bulk_price($object, $item);
     }
 
 }
