@@ -7,13 +7,15 @@
  * @author i-lateral (http://www.i-lateral.com)
  * @package commerce-bulkprice
  */
-class BulkPriceProduct extends DataExtension {
+class BulkPriceProduct extends DataExtension
+{
 
     private static $has_many = array(
         "BulkPrices" => "BulkPrice"
     );
 
-    public function updateCMSFields(FieldList $fields) {
+    public function updateCMSFields(FieldList $fields)
+    {
 
         // Deal with product features
         $add_button = new GridFieldAddNewInlineButton('toolbar-header-left');
@@ -35,11 +37,11 @@ class BulkPriceProduct extends DataExtension {
         $fields->addFieldToTab('Root.BulkPrices', $bulk_field);
     }
 
-    public function onBeforeDelete() {
+    public function onBeforeDelete()
+    {
         // Clean database before deletion
-        foreach($this->owner->BulkPrices() as $object) {
+        foreach ($this->owner->BulkPrices() as $object) {
             $object->delete();
         }
     }
-
 }

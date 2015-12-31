@@ -14,7 +14,8 @@
  * @author i-lateral (http://www.i-lateral.com)
  * @package commerce-bulkprice
  */
-class BulkPrice extends DataObject {
+class BulkPrice extends DataObject
+{
 
     private static $db = array(
         "Quantity"  => "Varchar",
@@ -30,27 +31,31 @@ class BulkPrice extends DataObject {
         "Price"
     );
 
-    public function onBeforeWrite() {
+    public function onBeforeWrite()
+    {
         parent::onBeforeWrite();
 
         // Ensure we strip any white space from the quantity field
         $this->Quantity = str_replace(" ", "", $this->Quantity);
     }
 
-    public function canView($member = false) {
+    public function canView($member = false)
+    {
         return $this->Parent()->canView($member);
     }
 
-    public function canCreate($member = null) {
+    public function canCreate($member = null)
+    {
         return $this->Parent()->canCreate($member);
     }
 
-    public function canEdit($member = null) {
+    public function canEdit($member = null)
+    {
         return $this->Parent()->canEdit($member);
     }
 
-    public function canDelete($member = null) {
+    public function canDelete($member = null)
+    {
         return $this->Parent()->canDelete($member);
     }
-
 }
