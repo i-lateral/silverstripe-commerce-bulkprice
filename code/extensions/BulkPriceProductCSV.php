@@ -1,16 +1,18 @@
 <?php
 
-class BulkPriceProductCSV extends Extension {
+class BulkPriceProductCSV extends Extension
+{
 
-    public function onAfterProcess($record, $object) {
+    public function onAfterProcess($record, $object)
+    {
 
         // Setup bulk prices for this object
-        if(isset($record['BulkPrices']) && $record['BulkPrices']) {
-            $prices = explode(";",$record["BulkPrices"]);
+        if (isset($record['BulkPrices']) && $record['BulkPrices']) {
+            $prices = explode(";", $record["BulkPrices"]);
 
-            if(count($prices)) {
-                foreach($prices as $price) {
-                    $price_data = explode("=",$price);
+            if (count($prices)) {
+                foreach ($prices as $price) {
+                    $price_data = explode("=", $price);
 
                     // Setup new bulk price object and link
                     $bulk_price = BulkPrice::create();
@@ -21,7 +23,5 @@ class BulkPriceProductCSV extends Extension {
                 }
             }
         }
-
     }
-
 }

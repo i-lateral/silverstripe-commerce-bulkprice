@@ -7,13 +7,16 @@
  * @author i-lateral (http://www.i-lateral.com)
  * @package commerce-bulkprice
  */
-class BulkPriceCatalogueController extends Extension {
+class BulkPriceCatalogueController extends Extension
+{
 
-    public function BulkPriceTable() {
-        if($this->owner->dataRecord instanceOf Product)
+    public function BulkPriceTable()
+    {
+        if ($this->owner->dataRecord instanceof Product) {
             $prices = $this->owner->dataRecord->BulkPrices();
-        else
+        } else {
             $prices = ArrayList::create();
+        }
 
         $vars = array(
             "BulkPrices"    => $prices,
@@ -24,5 +27,4 @@ class BulkPriceCatalogueController extends Extension {
             ->owner
             ->renderWith("BulkPriceTable", $vars);
     }
-
 }
