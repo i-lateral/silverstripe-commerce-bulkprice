@@ -55,30 +55,22 @@ class BulkPriceShoppingCart extends Extension {
      * Calculate the item price, based on any bulk discounts set
      */
     public function onBeforeAdd($item) {
-        $id = $item->StockID;
-        $classname = $item->ClassName;
-        $object = null;
+        $object = $item->FindStockItem();
         
-        if($id && $classname)
-            $object = $classname::get()->filter("StockID", $id)->first();
-        
-        if($object)
+        if($object) {
             $item->BasePrice = $this->calculate_bulk_price($object, $item);
+        }
     }
 
     /**
      * Calculate the item price, based on any bulk discounts set
      */
     public function onBeforeUpdate($item) {
-        $id = $item->StockID;
-        $classname = $item->ClassName;
-        $object = null;
+        $object = $item->FindStockItem();
         
-        if($id && $classname)
-            $object = $classname::get()->filter("StockID", $id)->first();
-        
-        if($object)
+        if($object) {
             $item->BasePrice = $this->calculate_bulk_price($object, $item);
+        }
     }
 
 }
