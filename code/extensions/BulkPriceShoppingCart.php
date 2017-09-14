@@ -53,10 +53,12 @@ class BulkPriceShoppingCart extends Extension {
 
     /**
      * Calculate the item price, based on any bulk discounts set
+     * 
+     * @param $item 
      */
     public function onBeforeAdd($item) {
         $id = $item->StockID;
-        $classname = $item->ClassName;
+        $classname = $item->ProductClass;
         $object = null;
         
         if($id && $classname)
@@ -71,7 +73,7 @@ class BulkPriceShoppingCart extends Extension {
      */
     public function onBeforeUpdate($item) {
         $id = $item->StockID;
-        $classname = $item->ClassName;
+        $classname = $item->ProductClass;
         $object = null;
         
         if($id && $classname)
