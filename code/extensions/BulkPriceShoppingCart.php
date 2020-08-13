@@ -65,7 +65,8 @@ class BulkPriceShoppingCart extends Extension {
             $object = $classname::get()->filter("StockID", $id)->first();
         
         if($object)
-            $item->BasePrice = $this->calculate_bulk_price($object, $item);
+            $item->Price = $this->calculate_bulk_price($object, $item);
+            $item->BasePrice = $item->Price;
     }
 
     /**
