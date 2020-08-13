@@ -29,7 +29,7 @@ class BulkPriceShoppingCart extends Extension {
                 $range[1] = -1; // -1 means no upper limit
             } else { // Assume we are dealing with a single price
                 $range[0] = $bulk_price->Quantity;
-                $range[1] = $bulk_price->Quantity;
+                $range[1] = -1; // -1 means no upper limit
             }
 
             // Now cast quantities correctly
